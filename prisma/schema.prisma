@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String     @id @default(cuid())
+  email            String     @unique
+  name             String
+  passwordHash     String
+  borrowingCapacity Float?
+  cashDeposit      Float?
+  marginalTaxRate  Float      @default(0.39)
+  properties       Property[]
+  createdAt        DateTime   @default(now())
+}
+
+model Property {
+  id                   String   @id @default(cuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id])
+  address              String
+  suburb               String
+  state                String
+  postcode             String
+  purchasePrice        Float
+  purchaseDate         DateTime
+  currentValue         Float
+  loanBalance          Float
+  interestRate         Float
+  loanType             String
+  weeklyRent           Float
+  propertyManagementPct Float   @default(8.5)
+  councilRatesAnnual   Float    @default(0)
+  insuranceAnnual      Float    @default(0)
+  depreciationAnnual   Float    @default(0)
+  landTaxAnnual        Float    @default(0)
+  propertyType         String
+  bedrooms             Int
+  landSize             Int?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
