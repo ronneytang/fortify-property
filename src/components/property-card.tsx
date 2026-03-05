@@ -1,6 +1,8 @@
 import { formatCurrency, formatPercent } from "@/lib/calculations";
+import { PropertyCardActions } from "@/components/property-card-actions";
 
 interface PropertyCardProps {
+  id: string;
   address: string;
   suburb: string;
   state: string;
@@ -30,7 +32,7 @@ interface PropertyCardProps {
   warnings: string[];
 }
 
-export function PropertyCard({ address, suburb, state, postcode, propertyType, bedrooms, currentValue, valueLabel, valueDate, tags, metrics, warnings }: PropertyCardProps) {
+export function PropertyCard({ id, address, suburb, state, postcode, propertyType, bedrooms, currentValue, valueLabel, valueDate, tags, metrics, warnings }: PropertyCardProps) {
   const tagColors: Record<string, string> = {
     green: "bg-[#d1fae5] text-[#065f46]",
     amber: "bg-[#fef3c7] text-[#92400e]",
@@ -136,17 +138,10 @@ export function PropertyCard({ address, suburb, state, postcode, propertyType, b
         </div>
         {warnings.length > 0 && warnings.map((w, i) => (
           <div key={i} className="mt-3.5 p-2.5 px-3 bg-[#fef3c7] rounded-lg text-[11px] text-[#92400e]">
-            \u26A0 {w}
+            ⚠ {w}
           </div>
         ))}
-        <div className="mt-3.5 flex gap-2">
-          <button className="flex-1 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-[#10b981] text-white hover:bg-[#0d9668] transition-colors">
-            Refinance Calculator
-          </button>
-          <button className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-transparent text-[#6b7280] border border-[#e5e7eb] hover:bg-[#f4f5f7] transition-colors">
-            View CGT Estimate
-          </button>
-        </div>
+        <PropertyCardActions id={id} address={address} />
       </div>
     </div>
   );

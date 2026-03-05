@@ -67,6 +67,7 @@ export default async function PropertiesPage() {
         return (
           <PropertyCard
             key={p.id}
+            id={p.id}
             address={p.address}
             suburb={p.suburb}
             state={p.state}

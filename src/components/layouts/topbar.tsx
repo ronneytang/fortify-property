@@ -39,7 +39,18 @@ function getPageInfo(pathname: string): { title: string; subtitle: string } {
         title: "Next Move",
         subtitle: "Borrowing capacity & market analysis for 3rd property",
       };
+    case "/add-property":
+      return {
+        title: "Add Property",
+        subtitle: "Add a new investment property to your portfolio",
+      };
     default:
+      if (pathname.startsWith("/properties/") && pathname.endsWith("/edit")) {
+        return {
+          title: "Edit Property",
+          subtitle: "Update property details and financials",
+        };
+      }
       return {
         title: "Fortify Property",
         subtitle: "Property Intelligence",
